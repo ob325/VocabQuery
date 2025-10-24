@@ -1,0 +1,22 @@
+
+queryConcept <- function(connectionDetails,
+                         pattern,
+                         domain = NULL,
+                         concept = NULL,
+                         class = NULL,
+                         vocab = NULL,
+                         validity = NULL) {
+
+  checkmate::assertClass(connectionDetails,
+                         "ConnectionDetails")
+  checkmate::assertCharacter(pattern, min.chars = 1) 
+
+  connection <- DatabaseConnector::connect(
+    connectionDetails)
+
+  on.exit(DatabaseConnector::disconnect(connection))
+
+  SqlRender::renderTra
+  
+}
+
