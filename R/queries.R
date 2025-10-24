@@ -1,22 +1,22 @@
 ##' Query the concept table 
 ##'
 ##' @title queryConceptName
-##' @param connectionDetails 
-##' @param schema 
-##' @param pattern 
-##' @param domain 
-##' @param concept 
-##' @param class 
-##' @param vocab 
-##' @param validity 
-##' @param cols 
+##' @param connectionDetails ConnectionDetails object
+##' @param schema database schema, character 
+##' @param pattern regex pattern to match 
+##' @param domain filter to value of OMOP domain_id
+##' @param standard filter to value of OMOP standard_concept
+##' @param class fiter to value of OMOP class_id
+##' @param vocab filter to value of OMOP vocabulary_id
+##' @param validity fiter to value of OMOP invalid_reason
+##' @param cols character vector of columns to include in result 
 ##' @return tibble 
 ##' @export
 queryConceptName <- function(connectionDetails,
                              schema,
                              pattern,
                              domain = NULL,
-                             concept = NULL,
+                             standard = NULL,
                              class = NULL,
                              vocab = NULL,
                              validity = NULL,
