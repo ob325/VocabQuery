@@ -140,7 +140,7 @@ descendants <- function(connectionDetails,
          on a.ancestor_concept_id = ca.concept_id
        left join @schema.concept cb
          on a.descendant_concept_id = cb.concept_id
-     where ancestor_concept_id like (@conceptIdSql)",
+     where ancestor_concept_id in (@conceptIdSql)",
     schema = schema,
     conceptIdSql = conceptIdSql)
   

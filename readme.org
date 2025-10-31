@@ -36,6 +36,12 @@
 #+end_src
 
 #+RESULTS:
+: attempting to download GiBleed
+: trying URL 'https://raw.githubusercontent.com/OHDSI/EunomiaDatasets/main/datasets/GiBleed/GiBleed_5.3.zip'
+: Content type 'application/zip' length 6861852 bytes (6.5 MB)
+: downloaded 6.5 MB
+: 
+: attempting to extract and load: C:\Users\WObrien8\AppData\Local\Temp\RtmpOuLMdk/GiBleed_5.3.zip to: C:\Users\WObrien8\AppData\Local\Temp\RtmpOuLMdk/GiBleed_5.3.sqlite
 
 * Find concepts
 
@@ -55,11 +61,8 @@ I want to find the concept for RxNorm standard ingredient `celecoxib`.
 
 #+RESULTS:
 : Connecting using SQLite driver
-: 
-: 
-: | concept_id|concept_name |vocabulary_id |standard_concept |domain_id |vocabulary_id |concept_class_id |
-: |----------:|:------------|:-------------|:----------------|:---------|:-------------|:----------------|
-: |    1118084|celecoxib    |RxNorm        |S                |Drug      |RxNorm        |Ingredient       |
+: Error in VocabQuery::queryConceptName(connectionDetails, schema = "main",  (from queries.R#40) : 
+:   object 'concept' not found
 
 * Distinct values of columns
 
@@ -125,7 +128,7 @@ Connecting using SQLite driver
 21                Visit
 #+end_example
 
-* Descendants of a standard concept
+* TODO Descendants of a standard concept
 
 Note: Eunomia's concept table doesn't have a row for 75053 so we manually fill in the values below
 
@@ -134,7 +137,7 @@ Note: Eunomia's concept table doesn't have a row for 75053 so we manually fill i
   VocabQuery::descendants(
                 connectionDetails,
                 schema = "main",
-                conceptId = 75053) |>
+                conceptId = c(23746, 75053)) |>
     mutate(ancestor_concept_name = 'Fracture of bone') |>
     kable() 
 
@@ -143,24 +146,17 @@ Note: Eunomia's concept table doesn't have a row for 75053 so we manually fill i
 #+RESULTS:
 #+begin_example
 Connecting using SQLite driver
-  ancestor_concept_id ancestor_concept_name descendant_concept_id
-1               75053      Fracture of bone               4230399
-2               75053      Fracture of bone               4059173
-3               75053      Fracture of bone               4048695
-4               75053      Fracture of bone               4066995
-5               75053      Fracture of bone               4278672
-6               75053      Fracture of bone               4237458
-7               75053      Fracture of bone              40480160
-8               75053      Fracture of bone               4142905
-9               75053      Fracture of bone               4134304
-                                  descendant_concept_name
-1                                  Closed fracture of hip
-2                                       Fracture of ankle
-3 Fracture of vertebral column without spinal cord injury
-4    Fracture of vertebral column with spinal cord injury
-5                                     Fracture of forearm
-6                                    Fracture of clavicle
-7               Pathological fracture due to osteoporosis
-8                                         Fracture of rib
-9                           Fracture subluxation of wrist
+
+
+| ancestor_concept_id|ancestor_concept_name | descendant_concept_id|descendant_concept_name                                 |
+|-------------------:|:---------------------|---------------------:|:-------------------------------------------------------|
+|               75053|Fracture of bone      |               4230399|Closed fracture of hip                                  |
+|               75053|Fracture of bone      |               4059173|Fracture of ankle                                       |
+|               75053|Fracture of bone      |               4048695|Fracture of vertebral column without spinal cord injury |
+|               75053|Fracture of bone      |               4066995|Fracture of vertebral column with spinal cord injury    |
+|               75053|Fracture of bone      |               4278672|Fracture of forearm                                     |
+|               75053|Fracture of bone      |               4237458|Fracture of clavicle                                    |
+|               75053|Fracture of bone      |              40480160|Pathological fracture due to osteoporosis               |
+|               75053|Fracture of bone      |               4142905|Fracture of rib                                         |
+|               75053|Fracture of bone      |               4134304|Fracture subluxation of wrist                           |
 #+end_example
