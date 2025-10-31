@@ -126,6 +126,8 @@ descendants <- function(connectionDetails,
   )
 
   on.exit(DatabaseConnector::disconnect(connection))
+
+  conceptIdSql <- paste0(conceptId, collapse = ", ")
   
   result <- DatabaseConnector::renderTranslateQuerySql(
     connection,
@@ -138,9 +140,9 @@ descendants <- function(connectionDetails,
          on a.ancestor_concept_id = ca.concept_id
        left join @schema.concept cb
          on a.descendant_concept_id = cb.concept_id
-     where ancestor_concept_id = @conceptId",
+     where ancestor_concept_id like (@conceptIdSql)",
     schema = schema,
-    conceptId = conceptId)
+    conceptIdSql = conceptIdSql)
   
   return(result) 
 }
